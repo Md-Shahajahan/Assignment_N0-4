@@ -46,3 +46,12 @@ function switchBtn(Btn){
     }
     updateCount();
 }
+// counting total ,interview and rejected section;
+const totalCount = document.getElementById('total-count')
+const interviewCount = document.getElementById('interview-count')
+const rejectedCount = document.getElementById('rejected-count')
+const jobCount = document.getElementById('job-count');
+totalCount.innerText = allCardSection.children.length;
+interviewCount.innerText = interviewCardSection.children.length;
+rejectedCount.innerText = rejectedCardSection.children.length;
+
