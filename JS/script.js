@@ -55,3 +55,48 @@ totalCount.innerText = allCardSection.children.length;
 interviewCount.innerText = interviewCardSection.children.length;
 rejectedCount.innerText = rejectedCardSection.children.length;
 
+
+// adding Eventlistener to main so that we can access dynamically to all section
+const  mainContainer = document.querySelector('main');
+mainContainer.addEventListener('click',function(event){
+    const eventName = event.target;
+    const card = eventName.closest(".card-container");
+    const cardParent = card.parentNode;
+    const status = card.querySelector('.status');
+    if(eventName.classList.contains('interview-btn')){
+       interviewCardSection.appendChild(card);
+       status.innerText = 'Interview'
+       status.classList.add('border' ,'border-green-500','bg-white', 'px-4', 'py-1', 'rounded-md', 'text-green-500','text-md');
+    }
+     if(eventName.classList.contains('rejected-btn')){
+        rejectedCardSection.appendChild(card);
+        status.innerText = 'Rejected'
+       status.classList.add('border' ,'border-red-500','bg-white', 'px-4', 'py-1', 'rounded-md', 'text-red-500','text-md');
+    }
+    if(eventName.parentNode.classList.contains('delete-btn')){
+        cardParent.removeChild(card);
+    }
+    updateCount()
+})
+function updateCount(){
+    // totalCount.innerText = allCardSection.children.length;
+    // interviewCount.innerText = interviewCardSection.children.length;
+    // rejectedCount.innerText = rejectedCardSection.children.length;
+    
+const counts = {
+    all:allCardSection.children.length,
+    interview:interviewCardSection.children.length,
+    rejected:rejectedCardSection.children.length
+};
+totalCount.innerText = counts.all;
+interviewCount.innerText = counts.interview
+rejectedCount.innerText = counts.rejected;
+jobCount.innerText = counts[currentBtn];
+if(counts[currentBtn] <1){
+   emptyJobSection.classList.remove('hidden'); 
+}
+else{
+    emptyJobSection.classList.add('hidden');
+}
+}
+updateCount();
